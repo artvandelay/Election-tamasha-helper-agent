@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Election Tamasha</title>
+  <style>
+    :root {
+      --purple: #47146f;
+      --purple-deep: #2e0b4a;
+      --cream: #fff2dc;
+      --gold: #e39b12;
+      --ink: #1a1a1a;
+      --muted: #5c5660;
+      --line: #e6e1ea;
+      --paper: #f7f5f8;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.45 "Avenir Next", "Segoe UI", sans-serif;
+    }
+    a { color: inherit; }
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0.65rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    .logo { height: 52px; width: auto; display: block; }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem 1.15rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    nav span { cursor: default; }
+    .bar-right { margin-left: auto; display: flex; align-items: center; gap: 0.8rem; font-size: 0.88rem; }
+    .order {
+      background: var(--purple);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 0.45rem 0.8rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 22.5rem;
+      min-height: calc(100vh - 74px);
+    }
+    .home {
+      padding: 1.5rem 1.75rem 2.5rem;
+      background:
+        radial-gradient(900px 280px at 10% -10%, #f3e9ff, transparent 60%),
+        #fff;
+    }
+    .kicker {
+      margin: 0;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--purple);
+    }
+    h1 {
+      margin: 0.35rem 0 0.2rem;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 16ch;
+    }
+    .sub { margin: 0.2rem 0 1rem; color: var(--muted); font-size: 1.05rem; }
+    .box {
+      width: min(100%, 34rem);
+      display: block;
+      margin: 0.4rem 0 1rem;
+    }
+    .price { margin: 0.2rem 0; font-size: 1.35rem; }
+    .price s { color: #8a8490; font-size: 1rem; margin-right: 0.35rem; }
+    .price small { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+    .actions { display: flex; gap: 0.6rem; margin: 0.8rem 0 1.1rem; }
+    .ghost {
+      border: 1px solid var(--purple);
+      color: var(--purple);
+      background: #fff;
+      text-decoration: none;
+      padding: 0.5rem 0.85rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .facts {
+      display: flex;
+      gap: 1.25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .facts strong { display: block; color: var(--ink); font-size: 1.05rem; }
+    .blurb { max-width: 38rem; color: #333; }
+    aside {
+      border-left: 1px solid var(--line);
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 74px);
+      position: sticky;
+      top: 0;
+      height: calc(100vh - 74px);
+    }
+    .ask-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.6rem;
+      background: var(--purple);
+      color: var(--cream);
+      padding: 0.85rem 0.9rem 0.75rem;
+    }
+    .ask-head h2 { margin: 0; font-size: 1.05rem; }
+    .ask-head p { margin: 0.2rem 0 0; font-size: 0.82rem; color: #f0ddff; }
+    .clear {
+      flex: none;
+      margin-top: 0.1rem;
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid rgba(255, 242, 220, 0.75);
+      border-radius: 4px;
+      padding: 0.32rem 0.5rem;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .clear:hover { background: rgba(255, 242, 220, 0.12); }
+    .board {
+      padding: 0.55rem 0.75rem 0.65rem;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    .picks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.4rem;
+    }
+    .board label {
+      display: block;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    select, textarea {
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 0.35rem 0.4rem;
+      border-radius: 4px;
+    }
+    .picks select { margin-top: 0.15rem; font-size: 0.75rem; padding: 0.28rem 0.2rem; }
+    .log {
+      flex: 1;
+      overflow: auto;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .msg { padding: 0.5rem 0.6rem; border-radius: 8px; white-space: pre-wrap; font-size: 0.92rem; }
+    .msg.user { background: #fff; border: 1px solid var(--line); }
+    .msg.bot { background: #efe4f8; }
+    .msg.error { background: #fde8e4; }
+    .composer { padding: 0.65rem 0.75rem 0.8rem; border-top: 1px solid var(--line); background: #fff; }
+    .composer textarea { min-height: 3.2rem; resize: vertical; }
+    .composer button, .chips button {
+      font: inherit;
+      cursor: pointer;
+    }
+    .send {
+      margin-top: 0.4rem;
+      width: 100%;
+      background: var(--gold);
+      color: #2a2108;
+      border: 0;
+      border-radius: 4px;
+      padding: 0.5rem 0.7rem;
+      font-weight: 700;
+    }
+    .send:disabled { opacity: 0.6; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.45rem; }
+    .chips button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 99px;
+      padding: 0.25rem 0.55rem;
+      font-size: 0.75rem;
+      color: var(--purple);
+    }
+    .status { min-height: 1rem; margin: 0.3rem 0 0; color: var(--muted); font-size: 0.75rem; }
+    .key-bar {
+      padding: 0.35rem 0.75rem;
+      background: #fbf9fd;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.76rem;
+    }
+    .key-summary {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+    }
+    .key-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c2bac7;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .key-dot.active {
+      background: #2ea44f;
+    }
+    .key-toggle {
+      background: none;
+      border: 0;
+      color: var(--purple);
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+      font: inherit;
+      font-size: 0.74rem;
+      margin-left: auto;
+    }
+    .key-drawer {
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed var(--line);
+    }
+    .key-input-row {
+      display: flex;
+      gap: 0.3rem;
+    }
+    .key-input-row input {
+      flex: 1;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.45rem;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+    }
+    .key-input-row button {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .key-input-row #save-key-btn {
+      background: var(--purple);
+      color: #fff;
+      border-color: var(--purple);
+    }
+    .key-input-row #clear-key-btn {
+      color: #8c2b2b;
+    }
+    .key-help {
+      margin: 0.25rem 0 0;
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+    @media (max-width: 860px) {
+      .stage { grid-template-columns: 1fr; }
+      aside { position: static; height: auto; min-height: 70vh; border-left: 0; border-top: 1px solid var(--line); }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="bar">
+    <img class="logo" src="logo.svg" alt="Election Tamasha">
+    <nav aria-label="Site">
+      <span>Shop</span>
+      <span>About The Game</span>
+      <a href="rules.html" style="text-decoration:none;color:inherit;">Game Rules</a>
+      <span>FAQ’s</span>
+      <span>About Us</span>
+      <span>Contact Us</span>
+    </nav>
+    <div class="bar-right">
+      <span>Login / Register</span>
+      <a class="order" href="https://electiontamasha.co.in/product/the-election-tamasha-game/">Order Now</a>
+    </div>
+  </header>
+  <div class="stage">
+    <section class="home">
+      <p class="kicker">POLITICS IS A GAME, KHEL KE DIKHA</p>
+      <h1>The politically incorrect board game</h1>
+      <p class="sub">Indian elections, now on your tabletop.</p>
+      <img class="box" src="https://cdn-ilehana.nitrocdn.com/hsUzBilIZRcjPSgKqhXfPEEcSViAkUwm/assets/images/optimized/rev-0a63340/electiontamasha.co.in/wp-content/uploads/2026/06/Home-Page.webp" alt="Election Tamasha game box, Yellow party and Purple party">
+      <p class="price"><s>₹3,499</s> <strong>₹2,499</strong> <small>+ 5% GST, shipping included</small></p>
+      <div class="actions">
+        <a class="order" href="https://electiontamasha.co.in/product/the-election-tamasha-game/">Order Now</a>
+        <a class="ghost" href="rules.html">How to play</a>
+      </div>
+      <ul class="facts">
+        <li><strong>2–4</strong> Players</li>
+        <li><strong>45–90</strong> Minutes</li>
+        <li><strong>9</strong> Constituencies</li>
+      </ul>
+      <p class="blurb">You and the opposition are high command. Nine seats. Win five, then survive Horse Trading. The assistant on the right answers from the rulebook. Version, phase, and who is asking are optional.</p>
+    </section>
+    <aside>
+      <div class="ask-head">
+        <div>
+          <h2>Ask the game</h2>
+          <p>English only. Answers from the rulebook. The three menus are optional.</p>
+        </div>
+        <button class="clear" id="clear" type="button">Clear chat</button>
+      </div>
+      <div class="board">
+        <div class="picks">
+          <label>Version
+            <select id="version">
+              <option value="">Not specified</option>
+              <option value="basic">Basic</option>
+              <option value="attack">Attack</option>
+              <option value="faction">Faction</option>
+            </select>
+          </label>
+          <label>Phase
+            <select id="phase">
+              <option value="">Not specified</option>
+              <option value="setup">Setup</option>
+              <option value="nomination">Nomination</option>
+              <option value="opening">Opening</option>
+              <option value="prachar">Prachar</option>
+              <option value="counting">Counting</option>
+              <option value="horse-trading">Horse Trading</option>
+            </select>
+          </label>
+          <label>Asking as
+            <select id="side">
+              <option value="">Not specified</option>
+              <option value="purple">Purple</option>
+              <option value="yellow">Yellow</option>
+              <option value="purple-left">Purple Left</option>
+              <option value="purple-right">Purple Right</option>
+              <option value="yellow-left">Yellow Left</option>
+              <option value="yellow-right">Yellow Right</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="key-bar" id="key-bar">
+        <div class="key-summary">
+          <span class="key-dot" id="key-dot"></span>
+          <span id="key-label">Key: checking…</span>
+          <button type="button" class="key-toggle" id="key-toggle">Set key</button>
+        </div>
+        <div class="key-drawer" id="key-drawer" hidden>
+          <div class="key-input-row">
+            <input type="password" id="api-key-input" placeholder="OpenRouter API Key (sk-or-v1-...)">
+            <button type="button" id="save-key-btn">Save</button>
+            <button type="button" id="clear-key-btn">Clear</button>
+          </div>
+          <p class="key-help">Saved only in your browser (never committed or sent to GitHub). Or open <code>#key=YOUR_KEY</code> in the URL.</p>
+        </div>
+      </div>
+      <div class="log" id="log" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <textarea id="question" placeholder="Ask a rules question"></textarea>
+        <button class="send" id="send" type="submit">Ask</button>
+        <div class="chips">
+          <button type="button" data-q="Can the opposition buy a winning Clean candidate?">Buy a Clean?</button>
+          <button type="button" data-q="When does Prachar end?">When Prachar ends</button>
+          <button type="button" data-q="We are playing Basic. Can I use an Attack card?">Attack in Basic?</button>
+        </div>
+        <p class="status" id="status"></p>
+      </form>
+    </aside>
+  </div>
+  <script>
+    const log = document.querySelector("#log");
+    const question = document.querySelector("#question");
+    const send = document.querySelector("#send");
+    const status = document.querySelector("#status");
+    const version = document.querySelector("#version");
+    const phase = document.querySelector("#phase");
+    const side = document.querySelector("#side");
+    const keyDot = document.querySelector("#key-dot");
+    const keyLabel = document.querySelector("#key-label");
+    const keyToggle = document.querySelector("#key-toggle");
+    const keyDrawer = document.querySelector("#key-drawer");
+    const apiKeyInput = document.querySelector("#api-key-input");
+    const saveKeyBtn = document.querySelector("#save-key-btn");
+    const clearKeyBtn = document.querySelector("#clear-key-btn");
+
+    const history = [];
+    const BOARD_KEY = "et-board";
+    let epoch = 0;
+
+    const SYSTEM_RULES = `You are the Election Tamasha rules helper sitting at the table.
+
+Language: English only. If the player writes in another language, answer in English and say this helper answers in English only.
+
+Use only the rulebook below. The full rulebook is in this message. If the rulebook does not say, say so in one sentence and point at the closest section. Do not invent a card's printed vote yield, Fund cost, or Pawn cost. Those numbers are on the physical cards.
+
+The player does not have to give a version, a phase, or who is asking. Blank, omitted, or unspecified means the player did not say. It is not a default. Do not assume Basic, Attack, Faction, Purple, Yellow, Prachar, or any other version, phase, or side.
+
+Answer a general rules question with no position at all. Do not ask for the board when the rulebook already answers the question. "When does Prachar end?" is general: answer it. Do not ask which version or phase.
+
+If the question cannot be answered correctly without the version, the phase, or who is asking, ask ONE short clarifying question and stop. Do not guess, and do not answer yes or no. Attack cards are not in Basic. They are added in the Attack version and still used in Faction. "Can I play an Attack card?" with no version is not answerable: ask which version. Do not assume Basic, and do not say yes because the Attack section exists. Faction turn order depends on the version and who is asking. If those were not said, ask. If they did set a fact, use it and do not ask again for that fact.
+
+When a version is given, apply it. If the version is Basic, do not tell them to play Attack, Victim, or Faction cards. If the version is Attack, Basic rules still apply plus the Attack section. If the version is Faction, earlier rules apply plus the Faction changes.
+
+Ignore free-text board notes. They are not a position.
+
+Horse Trading: follow the printed sheet. Only a winning Crook, a winning Corrupt, or a winning BigNeta is tradable. A winning Clean never switches and is never part of B. Buying capacity D is CPF divided by 5 with the remainder ignored, so 12 Cr is D = 2, not 2.4. Seats you can buy E is the lower of D and the opponent's tradable winners B. When they ask how many seats can be bought, the next sentence must give D, how many opponent winners were tradable, and that any Clean winner was not counted. Final strength F = initial seats A + seats purchased E. Higher F wins. On a tie, more initial seats wins. Do not subtract sold seats unless you are quoting the manual's "change hands" sentence as something the sheet does not turn into a formula.
+
+Lead with the ruling in one or two plain sentences, then the reason and the section name. No markdown, no asterisks, no bullet theatre. No preamble about being an assistant.`;
+
+    const CLOSING_RULES = `End of rulebook. Apply it with these limits.
+
+A missing version, phase, or side means the player did not say it. Do not fill it in. Do not default to Basic, Purple, or Prachar.
+
+If the question is general, answer from the rulebook and do not ask for the board. "When does Prachar end?" is general.
+
+If they ask whether they can play an Attack card, a Victim card, or a Faction card and they did not give the version, your whole reply is one short question asking which version. Do not say yes. Do not say no. Do not assume Basic. The Attack section describes another version. It is not permission for this player.
+
+If they already set a fact, use it and do not ask for it again.`;
+
+    function positionBlock(pos) {
+      const unset = new Set(["", "unspecified", "not specified", "none", "n/a", "na", "—", "-", "–"]);
+      const lines = [];
+      if (pos.version && !unset.has(pos.version.toLowerCase())) lines.push("Version: " + pos.version);
+      if (pos.phase && !unset.has(pos.phase.toLowerCase())) lines.push("Phase: " + pos.phase);
+      if (pos.side && !unset.has(pos.side.toLowerCase())) lines.push("Who is asking: " + pos.side);
+      if (lines.length === 0) {
+        return "Game position: the player did not say a version, phase, or side. " +
+          "That is not a default. Do not assume Basic, Purple, Prachar, or anything else. " +
+          "If the question is general, answer it and do not ask for the board. " +
+          "If they ask about playing an Attack, Victim, or Faction card, ask which version " +
+          "in one short question. Do not say yes or no.";
+      }
+      return "Game position the player set. Use these facts and do not ask again for them. " +
+        "Any of version, phase, or side missing below was not said. Do not assume it. " +
+        "If version is missing and they ask about an Attack, Victim, or Faction card, " +
+        "ask which version. Do not say yes or no.\n" + lines.join("\n");
+    }
+
+    let rulebookCache = "";
+    async function loadRulebook() {
+      if (rulebookCache) return rulebookCache;
+      try {
+        const res = await fetch("rules.html");
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const main = doc.querySelector("#rulebook");
+        if (main) {
+          rulebookCache = (main.innerText || main.textContent || "")
+            .split("\n")
+            .map((s) => s.trim())
+            .filter(Boolean)
+            .join("\n");
+          return rulebookCache;
+        }
+      } catch (err) {
+        console.warn("Could not load rules.html", err);
+      }
+      return "";
+    }
+    loadRulebook();
+
+    function getStoredKey() {
+      return (localStorage.getItem("et_openrouter_key") || "").trim();
+    }
+
+    function checkKeyFromHash() {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) return;
+      const params = new URLSearchParams(hash);
+      const k = params.get("key");
+      if (k && k.trim()) {
+        localStorage.setItem("et_openrouter_key", k.trim());
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    }
+
+    function updateKeyUI() {
+      const k = getStoredKey();
+      const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      if (k) {
+        keyDot.classList.add("active");
+        keyLabel.textContent = "Key: " + k.slice(0, 7) + "…" + k.slice(-4);
+        keyToggle.textContent = "Change";
+        apiKeyInput.value = k;
+      } else if (isLocal) {
+        keyDot.classList.add("active");
+        keyLabel.textContent = "Local backend active";
+        keyToggle.textContent = "Add key";
+        apiKeyInput.value = "";
+      } else {
+        keyDot.classList.remove("active");
+        keyLabel.textContent = "API key not set";
+        keyToggle.textContent = "Set key";
+        apiKeyInput.value = "";
+      }
+    }
+
+    keyToggle.addEventListener("click", () => {
+      keyDrawer.hidden = !keyDrawer.hidden;
+      if (!keyDrawer.hidden) apiKeyInput.focus();
+    });
+
+    saveKeyBtn.addEventListener("click", () => {
+      const val = apiKeyInput.value.trim();
+      if (val) {
+        localStorage.setItem("et_openrouter_key", val);
+      } else {
+        localStorage.removeItem("et_openrouter_key");
+      }
+      keyDrawer.hidden = true;
+      updateKeyUI();
+      status.textContent = "";
+    });
+
+    clearKeyBtn.addEventListener("click", () => {
+      localStorage.removeItem("et_openrouter_key");
+      apiKeyInput.value = "";
+      keyDrawer.hidden = true;
+      updateKeyUI();
+    });
+
+    function saveBoard() {
+      sessionStorage.setItem(BOARD_KEY, JSON.stringify({
+        version: version.value,
+        phase: phase.value,
+        side: side.value
+      }));
+    }
+
+    function restore(select, value) {
+      if (value === "unspecified") value = "";
+      if ([...select.options].some((opt) => opt.value === value)) select.value = value;
+    }
+
+    function loadBoard() {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(BOARD_KEY) || "null");
+        if (!saved) return;
+        restore(version, saved.version);
+        restore(phase, saved.phase);
+        restore(side, saved.side);
+      } catch (err) {
+        /* keep the unset menus */
+      }
+    }
+
+    function position() {
+      const out = {};
+      if (version.value) out.version = version.value;
+      if (phase.value) out.phase = phase.value;
+      if (side.value) out.side = side.value;
+      return out;
+    }
+
+    function clearChat() {
+      epoch += 1;
+      history.length = 0;
+      log.replaceChildren();
+      status.textContent = "";
+      send.disabled = false;
+    }
+
+    function add(kind, text) {
+      const div = document.createElement("div");
+      div.className = "msg " + kind;
+      div.textContent = text;
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function callOpenRouter(apiKey, text, prior) {
+      const rules = await loadRulebook();
+      const systemPrompt = SYSTEM_RULES + "\n\nRULEBOOK:\n" + rules + "\n\n" + CLOSING_RULES;
+      const messages = [
+        { role: "system", content: systemPrompt }
+      ];
+      for (const turn of prior.slice(-8)) {
+        messages.push({ role: turn.role, content: turn.content.slice(0, 2000) });
+      }
+      messages.push({
+        role: "user",
+        content: positionBlock(position()) + "\n\nQuestion:\n" + text.slice(0, 2000)
+      });
+
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + apiKey,
+          "Content-Type": "application/json",
+          "HTTP-Referer": window.location.href,
+          "X-Title": "Election Tamasha Rules Helper"
+        },
+        body: JSON.stringify({
+          model: "~deepseek/deepseek-flash-latest",
+          temperature: 0.2,
+          max_tokens: 700,
+          messages: messages
+        })
+      });
+
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        const msg = errJson.error?.message || ("OpenRouter error " + res.status);
+        throw new Error(msg);
+      }
+      const data = await res.json();
+      const answer = (data.choices?.[0]?.message?.content || "").trim();
+      if (!answer) throw new Error("Empty response from AI model.");
+      return answer;
+    }
+
+    async function ask(text) {
+      text = text.trim();
+      if (!text) return;
+      const ticket = epoch;
+      const prior = history.slice();
+      const apiKey = getStoredKey();
+      const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+      if (!apiKey && !isLocal) {
+        keyDrawer.hidden = false;
+        apiKeyInput.focus();
+        status.textContent = "Please set an OpenRouter API key above to chat.";
+        return;
+      }
+
+      add("user", text);
+      question.value = "";
+      send.disabled = true;
+      status.textContent = "Checking the rulebook…";
+
+      try {
+        let answer = "";
+        if (apiKey) {
+          answer = await callOpenRouter(apiKey, text, prior);
+        } else {
+          const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text, position: position(), history: prior })
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Request failed");
+          answer = data.answer;
+        }
+
+        if (ticket !== epoch) return;
+        history.push({ role: "user", content: text });
+        history.push({ role: "assistant", content: answer });
+        while (history.length > 8) history.shift();
+        add("bot", answer);
+        status.textContent = "";
+      } catch (err) {
+        if (ticket !== epoch) return;
+        add("error", err.message);
+        status.textContent = "";
+      } finally {
+        if (ticket === epoch) {
+          send.disabled = false;
+          question.focus();
+        }
+      }
+    }
+
+    checkKeyFromHash();
+    updateKeyUI();
+    loadBoard();
+    for (const field of [version, phase, side]) {
+      field.addEventListener("change", saveBoard);
+      field.addEventListener("input", saveBoard);
+    }
+    document.querySelector("#clear").addEventListener("click", clearChat);
+    question.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        ask(question.value);
+      }
+    });
+    document.querySelector("#composer").addEventListener("submit", (event) => {
+      event.preventDefault();
+      ask(question.value);
+    });
+    for (const chip of document.querySelectorAll(".chips button")) {
+      chip.addEventListener("click", () => ask(chip.dataset.q));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Election Tamasha — Rules</title>
+  <style>
+    :root {
+      --ink: #1c1914;
+      --muted: #5c564c;
+      --paper: #f4efe4;
+      --card: #fffdf8;
+      --line: #ddd4c4;
+      --purple: #5c2d86;
+      --yellow: #c89212;
+      --yellow-soft: #f6e7c0;
+      --purple-soft: #efe6f6;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 18px/1.55 Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif;
+    }
+    a { color: var(--purple); }
+    header.top {
+      background: var(--ink);
+      color: #f7f1e6;
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+    header.top a { color: #f6e7c0; text-decoration: none; font-family: "Avenir Next", "Segoe UI", sans-serif; font-size: 0.95rem; }
+    header.top strong { font-weight: 700; letter-spacing: 0.02em; }
+    .wrap { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+    nav.toc {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 1rem 1.1rem;
+      margin: 1.25rem 0 2rem;
+    }
+    nav.toc ol { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+    nav.toc a { text-decoration: none; }
+    nav.toc a:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; line-height: 1.15; margin: 0.2rem 0 0.4rem; }
+    h2 { font-size: 1.45rem; margin: 2.2rem 0 0.6rem; padding-top: 0.6rem; border-top: 2px solid var(--ink); }
+    h3 { font-size: 1.15rem; margin: 1.4rem 0 0.4rem; }
+    .kicker { font-family: "Avenir Next", "Segoe UI", sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+    .note, .callout {
+      background: var(--yellow-soft);
+      border-left: 4px solid var(--yellow);
+      padding: 0.7rem 0.9rem;
+      margin: 1rem 0;
+    }
+    .callout.purple { background: var(--purple-soft); border-left-color: var(--purple); }
+    p { margin: 0.55rem 0; }
+    ul, ol { margin: 0.4rem 0 0.8rem; padding-left: 1.25rem; }
+    li { margin: 0.25rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1rem; font-size: 0.95rem; background: var(--card); }
+    th, td { border: 1px solid var(--line); padding: 0.4rem 0.5rem; text-align: left; vertical-align: top; }
+    th { background: #efe8da; }
+    .meta { color: var(--muted); font-size: 0.95rem; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86em; }
+    @media print {
+      header.top, nav.toc { display: none; }
+      body { background: white; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <strong>Election Tamasha</strong>
+    <a href="index.html">Ask the rules helper</a>
+  </header>
+  <div class="wrap">
+    <main id="rulebook">
+      <p class="kicker">Instruction manual · Basic, then Attack and Faction · June 2026</p>
+      <h1>Rules of Election Tamasha</h1>
+      <p class="meta">Office of the Commissioner of Election Tamasha. Ref. ECT/BASIC/2026/001. Classification: Public (Highly Dramatic). Subject: Model Code of Game Conduct.</p>
+      <p class="note">This page is the playable rulebook transcribed from the printed manual <em>16_Election Tamasha Instruction Manual For BW</em>. The public page at electiontamasha.co.in/game-rules was not serving its PDF when this was made. Card-by-card vote prices are printed on the cards. They are not in this book.</p>
+
+      <nav class="toc" aria-label="Contents">
+        <strong>Contents</strong>
+        <ol>
+          <li><a href="#general">General provisions</a></li>
+          <li><a href="#goal">Goal and first game</a></li>
+          <li><a href="#box">What’s in the box</a></li>
+          <li><a href="#setup">Setup</a></li>
+          <li><a href="#nomination">Phase 1 — Nomination</a></li>
+          <li><a href="#prachar">Phase 2 — Prachar</a></li>
+          <li><a href="#counting">Phase 3 — Counting and Horse Trading</a></li>
+          <li><a href="#attack">Attack version</a></li>
+          <li><a href="#faction">Faction version</a></li>
+          <li><a href="#strategy">Strategy notes</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="general">General provisions</h2>
+      <p>The Commission issues these directives for free, fair, and sufficiently dramatic elections across all nine constituencies. Arguments do not win seats. Strategy, with adequate KhokaPeti (Fund), does.</p>
+      <ol>
+        <li><strong>1.1 Players.</strong> Two to four players, organised into two parties: the Purple Party and the Yellow Party. The manual does not say how a third player sits in the Basic version. Faction version is the four-player form: two parties, each split into Left and Right.</li>
+        <li><strong>1.2 Time.</strong> About 45 to 90 minutes, not counting disputes, accusations, or tea breaks.</li>
+        <li><strong>1.3 Objective.</strong> Win five or more constituencies after the Horse Trading phase. Take Horse Trading seriously. That is where the real politics happens.</li>
+      </ol>
+
+      <h2 id="goal">Your first game</h2>
+      <p>2–4 players. 45–90 minutes. This section gets a table playing in one sitting. It is the Basic version. Attack version and Faction version add the drama after you have played once.</p>
+      <p>You and the opposition are high command. You pick candidates (Netas), spend Funds and Pawns, play cards, collect votes, and win constituencies.</p>
+      <div class="callout">
+        <strong>The goal.</strong> Win 5 or more constituencies by earning votes, then survive Horse Trading to win the election. Pick your candidates, fund their campaigns, fight for votes seat by seat, then survive Horse Trading.
+      </div>
+      <p>The board has nine constituencies, each named for its dominant voter group:</p>
+      <ul>
+        <li>SC</li>
+        <li>ST</li>
+        <li>OBC</li>
+        <li>Minority</li>
+        <li>Kshatriya</li>
+        <li>Pandit</li>
+        <li>Gareeb</li>
+        <li>Kisan</li>
+        <li>Amir</li>
+      </ul>
+
+      <h2 id="box">What’s in the box</h2>
+      <p>For the first game, set aside Attack, Victim, and Faction cards. You will not need them.</p>
+      <h3>Board</h3>
+      <ul>
+        <li>Constituencies Board — the nine seats above.</li>
+      </ul>
+      <h3>Cards</h3>
+      <ul>
+        <li><strong>PartyKundali Cards (18).</strong> Pre-poll surveys that set starting votes.</li>
+        <li><strong>BigNeta Cards (2).</strong> Mrs. Jamuni (Purple) and Mr. Haldi (Yellow). Your party boss.</li>
+        <li><strong>CandyNeta Cards (28).</strong> Your candidates. Three types:
+          <ul>
+            <li>Clean — fewer resources, zero risk.</li>
+            <li>Corrupt — more resources, medium risk.</li>
+            <li>Crook — most resources, highest risk. If they win, the opposition can buy them back.</li>
+          </ul>
+        </li>
+        <li><strong>Big Campaign Cards (9).</strong> High-impact campaigns usable in any constituency, with one exception at the opening (see Prachar).</li>
+        <li><strong>Campaign Cards (36).</strong> Targeted campaigns for specific constituencies.</li>
+        <li><strong>Breaking News Cards (27).</strong> Could help or hurt.</li>
+      </ul>
+      <h3>Resources</h3>
+      <ul>
+        <li><strong>Funds (KhokaPeti)</strong> — 62 per party. Each unit is Rs. 1 Cr.</li>
+        <li><strong>Pawns (Chele)</strong> — 50 per party. Each pawn is 1K people.</li>
+        <li><strong>VoteBank Coins</strong> — 60 per party. Each coin is 10K votes. These decide the seats.</li>
+      </ul>
+      <h3>Other</h3>
+      <ul>
+        <li><strong>War Room Planners (2)</strong> — one per party. Organise cards and resources here.</li>
+      </ul>
+      <p>Attack, Victim, and Faction pieces are used only in the later versions. Counts from the manual: 31 Attack cards; 10 Victim cards per side; 9 Faction cards per colour (9 Purple or 9 Yellow).</p>
+      <p>The nomination diagram ranks supporters, funds, and risk from Clean (lowest, no risk) through Corrupt to Crook (highest risk). Exact Fund and Pawn numbers are printed on each CandyNeta card. This book only gives the comparison and the Central Party Fund rates below.</p>
+
+      <h2 id="setup">Setup</h2>
+      <ol>
+        <li><strong>A. Pick your party.</strong> Sit at your colour strip — Purple (P Party) or Yellow (Y Party).</li>
+        <li><strong>B. Arrange the board.</strong>
+          <table>
+            <thead><tr><th>Position</th><th>Item</th></tr></thead>
+            <tbody>
+              <tr><td>Board</td><td>Constituencies Board</td></tr>
+              <tr><td>Near board</td><td>BigNeta — Mrs. Jamuni (Purple), Mr. Haldi (Yellow)</td></tr>
+              <tr><td>Purple public pool box</td><td>Funds / Pawns / VoteBank Coins</td></tr>
+              <tr><td>Yellow public pool box</td><td>Funds / Pawns / VoteBank Coins</td></tr>
+              <tr><td>Card tray</td><td>PartyKundali / CandyNeta / Big Campaign / Campaign / Breaking News</td></tr>
+              <tr><td>Outside tray</td><td>War Room Planner × 2 (one per party)</td></tr>
+            </tbody>
+          </table>
+        </li>
+        <li><strong>C. Starting votes.</strong> Purple Party draws one random PartyKundali card. It shows the pre-poll survey. Both parties place VoteBank Coins on the board as shown. Discard the card after use.</li>
+      </ol>
+
+      <h2 id="nomination">Phase 1 — Nomination</h2>
+      <p>Place your candidates. Allocate resources.</p>
+
+      <h3>Step 1 — Place CandyNetas</h3>
+      <ol>
+        <li>Shuffle all 28 CandyNeta cards.</li>
+        <li>Purple Party reveals cards one at a time:
+          <ul>
+            <li>Place the card in each empty constituency. Match an SC CandyNeta to the SC constituency, and so on. Miss Bolly goes anywhere.</li>
+            <li>Already filled? Move the card to a side pile.</li>
+            <li>Continue until all 9 seats are filled.</li>
+          </ul>
+        </li>
+        <li>Shuffle the side pile. Yellow Party does the same.</li>
+      </ol>
+      <p>There are nine Neta groups. Each constituency gets one. A CandyNeta can be Clean, Corrupt, or Crook.</p>
+
+      <h3>Step 2 — Swap CandyNetas</h3>
+      <p>Think of this as pre-election team selection.</p>
+      <ol>
+        <li>Shuffle the remaining CandyNeta cards and deal 5 to each party.</li>
+        <li>Each party may now swap:
+          <ul>
+            <li><strong>(A) Mandatory.</strong> Replace one CandyNeta with your BigNeta. Both parties play simultaneously. One BigNeta card per party (Mrs. Jamuni or Mr. Haldi).</li>
+            <li><strong>(B) Optional.</strong> Replace up to 5 CandyNetas with your 5 dealt cards.</li>
+          </ul>
+        </li>
+        <li>Discard all remaining CandyNeta cards.</li>
+      </ol>
+      <div class="callout purple">
+        <p><strong>Good to know.</strong> Your BigNeta plays like a Crook — biggest resources, biggest risk, and if they win, the opposition can try to buy them in Horse Trading.</p>
+        <p><strong>Before you swap.</strong> Winning with a Crook is useful until the opposition buys them back. Weigh resources against risk before committing.</p>
+      </div>
+
+      <h3>Step 3 — Resource allocation</h3>
+      <ol>
+        <li>Distribute Funds and Pawns from the Public Pool to each CandyNeta, based on the values printed on their card.</li>
+        <li>Build your <strong>Central Party Fund (CPF)</strong>. Each CandyNeta contributes in exchange for their election ticket:
+          <ul>
+            <li>Crook: Rs. 2 Cr each</li>
+            <li>Corrupt: Rs. 1 Cr each</li>
+            <li>Clean: Rs. 0</li>
+          </ul>
+        </li>
+      </ol>
+      <p>Keep your CPF hidden behind the War Room Planner. You need it for Campaign cards (see FAQ 5) and for Horse Trading. BigNeta counts as a Crook for this purpose: biggest resources and full Horse Trading risk.</p>
+
+      <h3>Step 4 — Stock your arsenal</h3>
+      <ol>
+        <li>Both parties draw and place <strong>9 Campaign cards</strong> in their War Room Planners.</li>
+        <li>Both parties draw and place <strong>3 Big Campaign cards</strong> in their War Room Planners.</li>
+        <li>Both parties draw <strong>6 Breaking News cards</strong> and place them face-down outside the planner.</li>
+        <li>Discard everything else.</li>
+      </ol>
+      <p>The planner drawing also shows Attack and Victim pockets. Leave those empty in the Basic version.</p>
+
+      <h2 id="prachar">Phase 2 — Prachar</h2>
+      <p>Campaign round by round for votes.</p>
+
+      <h3>Opening speech</h3>
+      <p>Purple Party goes first with a short opening speech.</p>
+      <ol>
+        <li>Pick one Big Campaign card and play it in your BigNeta’s constituency. At the start of the game a Big Campaign can only be played in the BigNeta’s constituency. Afterwards it can be played in any constituency (FAQ 2).</li>
+        <li>Read it aloud.</li>
+        <li>Return the listed Funds and Pawns from the BigNeta to the Public Pool.</li>
+        <li>Take the listed VoteBank Coins.</li>
+        <li>Discard the card.</li>
+      </ol>
+      <p>Yellow Party then does the same in its own BigNeta’s constituency. One Big Campaign is used in this opening, so two Big Campaign cards remain from the three you drew.</p>
+
+      <h3>Election Prachar</h3>
+      <p>On your turn, play exactly one card: a Campaign card, a Big Campaign card, or a Breaking News card.</p>
+      <h3>Campaign card</h3>
+      <p>Constituency-specific. It must be played in the matching seat.</p>
+      <ol>
+        <li>Pick a card.</li>
+        <li>Read it aloud.</li>
+        <li>Return the listed Funds and Pawns to the Public Pool.</li>
+        <li>Take the listed VoteBank Coins.</li>
+        <li>Discard the card.</li>
+      </ol>
+      <h3>Big Campaign card</h3>
+      <p>After the opening, a Big Campaign can be played in any constituency. Same payment steps: read aloud, return the listed Funds and Pawns to the Public Pool, take the listed VoteBank Coins, discard the card.</p>
+
+      <h3>Breaking News card</h3>
+      <ol>
+        <li>Draw one card face-down.</li>
+        <li>Your opponent picks the target constituency.</li>
+        <li>Flip and read aloud.</li>
+        <li>If the card gains: take the listed resources and give them to the CandyNeta, to your CPF, or split them.</li>
+        <li>If the card loses: return the listed resources to the Public Pool.</li>
+        <li>Discard the card.</li>
+      </ol>
+      <p>Of the 27 Breaking News cards (FAQ 4): 12 gain resources or votes, 3 gain only resources, 6 reduce resources or votes, and 6 reduce only Funds.</p>
+
+      <h3>Running low on resources to campaign</h3>
+      <ul>
+        <li><strong>If no Pawns:</strong> buy from the Public Pool at Rs. 1 Cr per 2 Pawns. Pay from that CandyNeta’s Funds and/or the CPF.</li>
+        <li><strong>If no Funds:</strong> use your CPF. If that is exhausted too, you cannot play cards that require Funds.</li>
+        <li><strong>If no VoteBank Coins in a seat:</strong> the manual says, “If no VoteBank Coins in a seat Opposition — CandyNeta gets the difference votes.”</li>
+      </ul>
+      <h3>Running low on resources for Breaking News</h3>
+      <p>Use CPF. If that is exhausted too, you lose the seat.</p>
+      <h3>When Prachar ends</h3>
+      <p>Prachar ends when both parties have played all 6 Breaking News cards — one per eligible turn. Playing all Campaign cards and all Big Campaign cards is optional.</p>
+      <p>Each turn is still exactly one card. A Campaign card, a Big Campaign card, or a Breaking News card each use up the turn. The phase does not end merely because six turns have passed. It ends when both parties have played all six of their Breaking News cards.</p>
+
+      <h2 id="counting">Phase 3 — Counting and Horse Trading</h2>
+      <h3>Who won what</h3>
+      <ol>
+        <li>The most VoteBank Coins in a constituency wins that seat.</li>
+        <li>If tied, resolve in this order:
+          <ol>
+            <li>Most remaining Funds in the seat.</li>
+            <li>Most remaining Pawns.</li>
+            <li>Coin flip or dice roll.</li>
+          </ol>
+        </li>
+        <li>Win 5 or more seats to win the election. Horse Trading still decides the true winner.</li>
+      </ol>
+
+      <h3>Horse Trading</h3>
+      <p>Even the losing party can flip the result by purchasing the winner’s Crook and Corrupt CandyNetas. Only Crook and Corrupt winners are for sale. Clean candidates do not switch. A winning BigNeta is treated as a Crook, so a winning BigNeta can be bought.</p>
+      <p><strong>Price:</strong> Rs. 5 Cr per CandyNeta, paid from CPF only.</p>
+      <ol>
+        <li><strong>A — Initial seats won</strong> by each party.</li>
+        <li><strong>B — Tradable winners</strong> (the manual’s sheet also says “Sellable Winners”): winning Crook and Corrupt CandyNetas on each side, including a winning BigNeta.</li>
+        <li><strong>C — CPF balance.</strong></li>
+        <li><strong>D — Buying capacity:</strong> divide CPF by Rs. 5 Cr. Ignore remainders. The sheet writes this as CPF ÷ 5.</li>
+        <li><strong>E — Final Sauda:</strong> the lower of your buying capacity (D) and the opponent’s tradable winners (B). That is how many seats can change hands.</li>
+        <li><strong>F — Final strength:</strong> initial seats (A) + seats purchased (E).</li>
+      </ol>
+      <p>Higher F wins. If F is tied, the party with more initial seats wins. The winner delivers a short victory speech. No unparliamentary language.</p>
+      <div class="note">
+        <p>The manual says purchased seats “change hands”, and it defines Final Strength only as A + E. It does not print a separate line that subtracts seats you sold. When someone asks who wins, follow the printed sheet: higher F, and on a tie more initial seats. Do not add a subtraction the sheet does not show.</p>
+      </div>
+
+      <h2 id="attack">Attack version</h2>
+      <p>Play Basic first. All Basic rules still apply. This section is only what is new.</p>
+      <p>Attack cards are public allegations against the opponent’s Crook and Corrupt CandyNetas. No resources are required to play one. If they cannot defend with a Victim card, they lose votes.</p>
+
+      <h3>Stocking the arsenal — additions to Step 4</h3>
+      <p><strong>Attack cards</strong></p>
+      <ol>
+        <li>Shuffle all 31 cards. Both parties draw 12 cards alternately.</li>
+        <li>Keep only 3, targeting opponent CandyNetas by name (see FAQ 6).</li>
+        <li>Place them in the Attack pockets of the War Room Planner. Discard the rest.</li>
+      </ol>
+      <p><strong>Victim cards</strong></p>
+      <ol>
+        <li>Select any 2 of your 10 cards that match your Crook, Corrupt, or BigNeta by name.</li>
+        <li>Place them in the Victim pockets of the War Room Planner. Discard the rest.</li>
+      </ol>
+
+      <h3>Prachar with Attack cards</h3>
+      <p>After the opening speech (Big Campaign in the BigNeta’s constituency), Prachar begins. Purple Party takes the first turn.</p>
+      <p>On each turn, play exactly one of:</p>
+      <ul>
+        <li>Campaign card</li>
+        <li>Big Campaign card (the remaining 2)</li>
+        <li>Breaking News card (all 6 must be played)</li>
+        <li>Attack card</li>
+      </ul>
+      <p><strong>Attack card</strong></p>
+      <ol>
+        <li>Read it aloud. No Funds or Pawns are required.</li>
+        <li>If the opponent holds a matching Victim card, they play it to cancel. Both cards are discarded.</li>
+        <li>Otherwise, remove the listed VoteBank Coins from that constituency and return them to the Public Pool.</li>
+        <li><strong>Deficit rule.</strong> If votes run short, the attacking party gains the difference.</li>
+      </ol>
+      <p>Counting and Horse Trading are identical to the Basic version.</p>
+
+      <h2 id="faction">Faction version</h2>
+      <p>Four players, two parties, one internal power struggle. All earlier rules still apply except where this section changes them.</p>
+      <p>Each party splits into Left (L) and Right (R). The factions compete individually. The party must still win the election. Inside the winning party, the Faction with the most winning seats (Addas) is the Kingmaker.</p>
+
+      <h3>Setup additions</h3>
+      <ul>
+        <li>Each player takes their full set of Faction cards: 9 Purple or 9 Yellow.</li>
+        <li>Each Faction keeps its own CPF.</li>
+      </ul>
+
+      <h3>Phase 1 — Nomination</h3>
+      <p>Purple Party goes first when placing CandyNetas.</p>
+      <ul>
+        <li>Right Faction places the first 5 matching CandyNeta cards.</li>
+        <li>Left Faction places the remaining 4.</li>
+        <li>Yellow Party repeats that pattern.</li>
+      </ul>
+      <p>Each constituency a Faction places becomes their <strong>Adda</strong>. The diagram tells you to find the matching Faction constituency card in the War Room Planner and place that Faction card in your party’s planner.</p>
+      <p><strong>Swapping.</strong> Each Faction swaps only inside their own Addas. Left Faction places the BigNeta in any of its 4 Addas. The two Factions of a party may swap jointly if both agree.</p>
+      <p><strong>Arsenal.</strong> Each Faction keeps at most 2 Attack cards and 1 Victim card.</p>
+
+      <h3>Phase 2 — Prachar</h3>
+      <p><strong>Opening speech.</strong> The Left Faction of Purple Party plays first: opening speech and Big Campaign in the BigNeta’s Adda. Yellow Party’s Left Faction plays the next turn.</p>
+      <p><strong>Election Prachar.</strong> Factions alternate. Same card options as Attack version, with these changes:</p>
+      <ul>
+        <li>Attack cards may only target opposition constituencies in your Adda.</li>
+        <li><strong>Breaking News.</strong> The counterpart Faction in the opposing party chooses the target constituency.</li>
+        <li><strong>Funding.</strong> If your CandyNeta runs low, draw from your Faction CPF.</li>
+        <li><strong>Resource gains</strong> go to the CandyNeta or to your Faction CPF. You decide.</li>
+      </ul>
+
+      <h3>Phase 3 — Counting and Horse Trading</h3>
+      <p>A Faction can win the game only if its party wins the election. Factions use separate CPFs to purchase an opposing Crook or Corrupt.</p>
+      <p>The sheet has a column for Purple Left, Purple Right, Purple total, Yellow Left, Yellow Right, and Yellow total. Rows:</p>
+      <table>
+        <thead><tr><th>Row</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Initial seats won</td></tr>
+          <tr><td>B</td><td>Sellable winners</td></tr>
+          <tr><td>C</td><td>CPF balance</td></tr>
+          <tr><td>D</td><td>Capacity to buy. CPF ÷ 5, ignore remainders.</td></tr>
+          <tr><td>E</td><td>Final Sauda. Lower of your capacity (D) and the opponent’s sellable winners (B).</td></tr>
+          <tr><td>F</td><td>Final strength. Initial seats (A) + seats purchased (E).</td></tr>
+        </tbody>
+      </table>
+      <p>The Horse Trading diagram shows two ways to pay: each Faction may fund a purchase from its own CPF, or the Factions may jointly fund. The marked price is 5 per Neta, the same Rs. 5 Cr price as Basic.</p>
+      <p><strong>Winner</strong></p>
+      <ul>
+        <li>Higher F wins. On a tie, more initial seats wins.</li>
+        <li>Inside the winning party, the Faction with the most Addas is the Kingmaker.</li>
+      </ul>
+      <p><strong>Faction tie-breakers</strong></p>
+      <ol>
+        <li>The Factions agree on a winner.</li>
+        <li>If not, they trade resources or influence internally.</li>
+        <li>If CPFs are equal and there is still no agreement: total re-election.</li>
+      </ol>
+      <p>Otherwise the Kingmaker delivers the victory speech.</p>
+      <p>Factions cannot attack each other (FAQ 7). Attack cards target the opposing party only. Rivalry inside a party is Adda control and CPF competition.</p>
+
+      <h2 id="strategy">Strategy notes</h2>
+      <ul>
+        <li><strong>Funds</strong> are the most flexible. They pay for campaigns and for buying Pawns. Protect them.</li>
+        <li><strong>Pawns</strong> fuel campaigns. If you run low you buy from the Public Pool at Rs. 1 Cr for 2 Pawns, which is expensive. Stock up early.</li>
+        <li><strong>VoteBank Coins</strong> are the scoreboard. Every other resource exists to earn these.</li>
+        <li><strong>CPF.</strong> The party with the deeper CPF almost always wins Horse Trading. Do not spend it during Prachar unless you have no alternative.</li>
+      </ul>
+      <p><strong>Picking CandyNetas.</strong> Crooks and Corrupts win seats faster, and every one who wins is a seat the opposition can buy back. Clean CandyNetas are safer. Sometimes that is the right call.</p>
+      <p><strong>Breaking News.</strong> You choose when to play it. Your opponent chooses where it lands. Play it when you can live with any outcome in the seat they might pick, or when you are willing to gamble and want them to sweat the choice.</p>
+
+      <h2 id="faq">FAQ</h2>
+      <ol>
+        <li><strong>How do I replace a CandyNeta with the BigNeta?</strong> During the mandatory swap (Step 2A), the BigNeta replaces one CandyNeta on the board. You may also replace up to 5 more with your dealt cards. For Attack and Victim purposes, the BigNeta is treated as a Crook: full risk, and eligible for Horse Trading if they win.</li>
+        <li><strong>Can a Big Campaign be played anywhere?</strong> At the start of the game, only in the BigNeta’s constituency. Afterwards, in any constituency. Favour the highest vote gain for the lowest cost.</li>
+        <li><strong>How do I choose a Campaign card?</strong> Check votes, Funds, and Pawns in each seat. Play where you are closest to winning, or where you most need to defend a lead.</li>
+        <li><strong>How do I choose a Breaking News constituency?</strong> Of 27 cards: 12 gain resources or votes, 3 gain only resources, 6 reduce resources or votes, 6 reduce only Funds. Name the seat where good news helps you most, or where bad news hurts your opponent most. In play, the opponent names the seat when you play the card. This answer is about how to think when you are the one naming it.</li>
+        <li><strong>What if I run out of Funds?</strong> Use your CPF. If both are exhausted, you cannot play cards that require Funds. The CPF you protect is the weapon you use in Horse Trading.</li>
+        <li><strong>How do I choose Attack cards?</strong> Target strong opposition candidates, not just any Crook or Corrupt. If the opponent likely holds a matching Victim card, you spend a card and gain nothing.</li>
+        <li><strong>Can Factions attack each other?</strong> No. Attack cards target the opposing party only.</li>
+        <li><strong>Can multiple tie-breakers happen?</strong> Yes. Funds first, Pawns second, then a coin toss or dice roll.</li>
+        <li><strong>What is the most important resource?</strong> It changes. Funds and Pawns win votes during Prachar. VoteBank Coins are the scoreboard. CPF decides the final winner. What you protect early is what wins late.</li>
+      </ol>
+
+      <h2 id="not-in-book">What this book does not contain</h2>
+      <ul>
+        <li>The vote yield, Fund cost, and Pawn cost printed on a specific Campaign, Big Campaign, PartyKundali, Breaking News, Attack, or Victim card.</li>
+        <li>The exact Fund and Pawn numbers printed on a specific CandyNeta, beyond Clean / Corrupt / Crook and the CPF ticket rates (Rs. 2 Cr / Rs. 1 Cr / Rs. 0).</li>
+        <li>A seating rule for three players in the Basic version.</li>
+      </ul>
+      <p class="meta">Source manual: “16_Election Tamasha Instruction Manual For BW”, 20 pages, Office of the Commissioner of Election Tamasha, June 2026. Publisher named in the manual: Ajjo Creations. The website box copy still says “Battle” and “War” for the advanced sets. This manual names those sets Attack and Faction.</p>
+    </main>
+  </div>
+</body>
+</html>
