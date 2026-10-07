@@ -47,3 +47,9 @@ also no RAG ok? all should be in context directly
 Source: chat.
 
 which model are u using for this? Id suggest latest deepseek flash for now
+
+## 2026-10-07 — quirky satirical game tonality
+
+Source: chat.
+
+Also match the bot's response tonality just like how the rest of election tamasha is quicky funny satarical make it fun its a board game after all
