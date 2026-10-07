@@ -24,38 +24,15 @@ MAX_HISTORY = 8
 MAX_MESSAGE = 2000
 MAX_POSITION = 80
 
-SYSTEM_RULES = """You are the Election Tamasha rules helper sitting at the table.
-
-Language: English only. If the player writes in another language, answer in English and say this helper answers in English only.
-
-Use only the rulebook below. The full rulebook is in this message. If the rulebook does not say, say so in one sentence and point at the closest section. Do not invent a card's printed vote yield, Fund cost, or Pawn cost. Those numbers are on the physical cards.
-
-The player does not have to give a version, a phase, or who is asking. Blank, omitted, or unspecified means the player did not say. It is not a default. Do not assume Basic, Attack, Faction, Purple, Yellow, Prachar, or any other version, phase, or side.
-
-Answer a general rules question with no position at all. Do not ask for the board when the rulebook already answers the question. "When does Prachar end?" is general: answer it. Do not ask which version or phase.
-
-If the question cannot be answered correctly without the version, the phase, or who is asking, ask ONE short clarifying question and stop. Do not guess, and do not answer yes or no. Attack cards are not in Basic. They are added in the Attack version and still used in Faction. "Can I play an Attack card?" with no version is not answerable: ask which version. Do not assume Basic, and do not say yes because the Attack section exists. Faction turn order depends on the version and who is asking. If those were not said, ask. If they did set a fact, use it and do not ask again for that fact.
-
-When a version is given, apply it. If the version is Basic, do not tell them to play Attack, Victim, or Faction cards. If the version is Attack, Basic rules still apply plus the Attack section. If the version is Faction, earlier rules apply plus the Faction changes.
-
-Ignore free-text board notes. They are not a position.
-
-Horse Trading: follow the printed sheet. Only a winning Crook, a winning Corrupt, or a winning BigNeta is tradable. A winning Clean never switches and is never part of B. Buying capacity D is CPF divided by 5 with the remainder ignored, so 12 Cr is D = 2, not 2.4. Seats you can buy E is the lower of D and the opponent's tradable winners B. When they ask how many seats can be bought, the next sentence must give D, how many opponent winners were tradable, and that any Clean winner was not counted. Final strength F = initial seats A + seats purchased E. Higher F wins. On a tie, more initial seats wins. Do not subtract sold seats unless you are quoting the manual's "change hands" sentence as something the sheet does not turn into a formula.
-
-Lead with the ruling in one or two plain sentences, then the reason and the section name. No markdown, no asterisks, no bullet theatre. No preamble about being an assistant.
-"""
-
-# Repeated after the rulebook so a long text does not bury the missing-position rule.
-CLOSING_RULES = """End of rulebook. Apply it with these limits.
-
-A missing version, phase, or side means the player did not say it. Do not fill it in. Do not default to Basic, Purple, or Prachar.
-
-If the question is general, answer from the rulebook and do not ask for the board. "When does Prachar end?" is general.
-
-If they ask whether they can play an Attack card, a Victim card, or a Faction card and they did not give the version, your whole reply is one short question asking which version. Do not say yes. Do not say no. Do not assume Basic. The Attack section describes another version. It is not permission for this player.
-
-If they already set a fact, use it and do not ask for it again.
-"""
+def load_prompts() -> tuple[str, str]:
+    path = (ROOT / "prompt.txt") if (ROOT / "prompt.txt").is_file() else (STATIC / "prompt.txt")
+    if not path.is_file():
+        raise RuntimeError("prompt.txt not found.")
+    raw = path.read_text(encoding="utf-8")
+    parts = raw.split("=== CLOSING RULES ===")
+    system = parts[0].replace("=== SYSTEM RULES ===", "").strip()
+    closing = parts[1].strip() if len(parts) > 1 else ""
+    return system, closing
 
 
 class TextExtractor(HTMLParser):
@@ -173,7 +150,8 @@ def chat(message: str, position: dict, history: list) -> tuple[str, str]:
     # Every request gets the full rulebook string. No summary, no passage pick, no retrieval.
     if len(RULEBOOK) < 1000:
         raise RuntimeError("The full rulebook is not loaded.")
-    system = SYSTEM_RULES + "\n\nRULEBOOK:\n" + RULEBOOK + "\n\n" + CLOSING_RULES
+    system_rules, closing_rules = load_prompts()
+    system = system_rules + "\n\nRULEBOOK:\n" + RULEBOOK + "\n\n" + closing_rules
     if RULEBOOK not in system or len(system) <= len(RULEBOOK):
         raise RuntimeError("Chat must send the whole rulebook.")
     messages = [
@@ -262,6 +240,7 @@ class Handler(BaseHTTPRequestHandler):
             "/rules.html": "rules.html",
             "/logo.svg": "logo.svg",
             "/home-box.webp": "home-box.webp",
+            "/prompt.txt": "prompt.txt",
         }
         rel = routes.get(path)
         if rel is None:
@@ -275,6 +254,7 @@ class Handler(BaseHTTPRequestHandler):
             ".html": "text/html; charset=utf-8",
             ".svg": "image/svg+xml",
             ".webp": "image/webp",
+            ".txt": "text/plain; charset=utf-8",
         }.get(file_path.suffix, "application/octet-stream")
         self._send(200, file_path.read_bytes(), kind)
 
